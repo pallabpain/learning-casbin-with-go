@@ -12,7 +12,7 @@ type CasbinEnforcer struct {
 
 func NewEnforcer() (*CasbinEnforcer, error) {
 	casbinModelFile := filepath.Join(CONF_DIR, "model.conf")
-	policyDefinitionFile := filepath.Join(CONF_DIR, "policy.json")
+	policyDefinitionFile := filepath.Join(CONF_DIR, "policy.csv")
 
 	enforcer, err := casbin.NewEnforcer(casbinModelFile, policyDefinitionFile)
 	if err != nil {

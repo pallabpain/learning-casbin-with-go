@@ -1,3 +1,5 @@
 p, admin, project:*, vm, read
 p, admin, project:*, vm, write
-p, user, project:*, vm, read
+p, member, project:*, vm, read
+g, user1, admin, project1
+g, user2, member, project1
