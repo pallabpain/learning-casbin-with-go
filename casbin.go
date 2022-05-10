@@ -1,30 +1,20 @@
 package main
 
 import (
-	"os"
 	"path/filepath"
 
 	"github.com/casbin/casbin/v2"
-	jsonadapter "github.com/casbin/json-adapter/v2"
 )
 
 type CasbinEnforcer struct {
 	enforcer *casbin.Enforcer
-	data     []byte
 }
 
 func NewEnforcer() (*CasbinEnforcer, error) {
 	casbinModelFile := filepath.Join(CONF_DIR, "model.conf")
 	policyDefinitionFile := filepath.Join(CONF_DIR, "policy.json")
 
-	data, err := os.ReadFile(policyDefinitionFile)
-	if err != nil {
-		return nil, err
-	}
-
-	adapter := jsonadapter.NewAdapter(&data)
-
-	enforcer, err := casbin.NewEnforcer(casbinModelFile, adapter)
+	enforcer, err := casbin.NewEnforcer(casbinModelFile, policyDefinitionFile)
 	if err != nil {
 		return nil, err
 	}
@@ -33,7 +23,6 @@ func NewEnforcer() (*CasbinEnforcer, error) {
 
 	return &CasbinEnforcer{
 		enforcer: enforcer,
-		data:     data,
 	}, nil
 }
 
